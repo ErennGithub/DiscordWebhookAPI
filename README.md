@@ -1,4 +1,4 @@
-<h1>DiscordWebhookAPI<img src="https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png" height="64" width="64" align="left"></img>&nbsp;<img src="https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png"></img></h1>
+<h1>DiscordWebhookAPI<img src="https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png" height="64" width="64" align="left"></img>&nbsp;<img src="https://camo.githubusercontent.com/5ae8de01bf9600042b35ddf5dd0523adc8e544370a836bc16aee083e7c01cf26/68747470733a2f2f706f676769742e706d6d702e696f2f63692e736869656c642f436f7274657850452f446973636f7264576562686f6f6b4150492f7e"></img></h1>
 <br />
 
 Discord Webhooks aracılığıyla kolayca mesaj göndermek için bir PocketMine-MP Eklentisi.
