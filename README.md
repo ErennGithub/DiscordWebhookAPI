@@ -1,78 +1,78 @@
-<h1>DiscordWebhookAPI<img src="https://raw.githubusercontent.com/CortexPE/DiscordWebhookAPI/master/dwapi.png" height="64" width="64" align="left"></img>&nbsp;<img src="https://poggit.pmmp.io/ci.shield/CortexPE/DiscordWebhookAPI/~"></img></h1>
+<h1>DiscordWebhookAPI<img src="https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png" height="64" width="64" align="left"></img>&nbsp;<img src="https://avatars.githubusercontent.com/u/3150836?s=200&v=4"></img></h1>
 <br />
 
-A PocketMine-MP Virion to easily send messages via Discord Webhooks
+Discord Webhooks aracılığıyla kolayca mesaj göndermek için bir PocketMine-MP Eklentisi.
 
-# Usage:
-Installation is easy, you may get a compiled phar [here](https://poggit.pmmp.io/ci/CortexPE/DiscordWebhookAPI/~) or integrate the virion itself into your plugin.
+# Kullanım:
+Kurulum kolaydır, [buradan](eklenicek) derlenmiş bir phar alabilir veya virionun kendisini eklentinize entegre edebilirsiniz.
 
-This virion is purely object oriented. So, to use it you'll have to import the `Webhook` object, the `Message` object and the optional `Embed` object (if necessary)
+Bu virion tamamen nesne yönelimlidir. Bu nedenle, onu kullanmak için 'Webhook' nesnesini, 'Message' nesnesini ve isteğe bağlı 'Embed' nesnesini (gerekirse) içe aktarmanız gerekir.
 
-## Basic Usage:
-### Import the classes
-You'll need to import these classes in order to easily use it within our code.
+## Basit Kullanım:
+### Sınıfları içe aktar
+Kodumuzda kolayca kullanabilmek için bu sınıfları içe aktarmanız gerekecek.
 ```php
 <?php
 
-use CortexPE\DiscordWebhookAPI\Message;
-use CortexPE\DiscordWebhookAPI\Webhook;
-use CortexPE\DiscordWebhookAPI\Embed; // optional
+use Eren\DiscordWebhookAPI\Message;
+use Eren\DiscordWebhookAPI\Webhook;
+use Eren\DiscordWebhookAPI\Embed; // optional
 ```
-### Construct a Discord `Webhook` object
-You'll need the Webhook's URL. For more information regarding how to create Discord webhooks on a Discord Text Channel, Please [click here](https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks).
+### Bir Discord "Webhook" nesnesi oluşturun
+Web kancasının URL'sine ihtiyacınız olacak. Discord Metin Kanalında Discord web kancalarının nasıl oluşturulacağı hakkında daha fazla bilgi için lütfen [burayı tıklayın](https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks).
 ```php
-$webHook = new Webhook("YOUR WEBHOOK URL");
+$webHook = new Webhook("WEBHOOK URL'NİZ");
 ```
-### Construct a Discord `Message` object
-You'll need to create a new `Message` object for every message that you want to send... You can use different message objects for separate webhooks and this object **DOES NOT** depend on the `Webhook` object. It is stand-alone and it would work by itself.
+### Bir Discord "Mesaj" nesnesi oluşturun
+Göndermek istediğiniz her mesaj için yeni bir 'Mesaj' nesnesi oluşturmanız gerekecek... Ayrı web kancaları için farklı mesaj nesneleri kullanabilirsiniz ve bu nesne 'Web kancası' nesnesine bağlı **ÇALIŞMAZ**. Tek başınadır ve kendi kendine çalışır.
 ```php
 $msg = new Message();
-$msg->setUsername("USERNAME"); // optional
-$msg->setAvatarURL("https://cortexpe.xyz/utils/kitsu.png"); // optional
-$msg->setContent("INSERT TEXT HERE"); // optional. Maximum length is 2000 characters, the limit is set by discord, therefore it is not hardcoded within this API
+$msg->setUsername("KULLANICI ADI"); // optional
+$msg->setAvatarURL("https://minotar.net/avatar/user"); // Elleme!
+$msg->setContent("BURAYA METİN EKLEYİN"); // isteğe bağlı. Maksimum uzunluk 2000 karakterdir, sınır discord tarafından belirlenir, bu nedenle bu API içinde sabit kodlanmamıştır
 ```
-### Sending the message
-You can easily send the message to the webhook now! :tada: This will schedule a new AsyncTask on the Server's AsyncPool to prevent blocking the Main Thread. Do take note however, that **you CANNOT send a blank message.** doing so will only produce an error received from Discord itself.
+### Mesajı gönderme
+Mesajı şimdi web kancasına kolayca gönderebilirsiniz! :tada: Bu, Ana İş parçacığının engellenmesini önlemek için Sunucunun AsyncPool'unda yeni bir AsyncTask zamanlayacaktır. Ancak unutmayın, **boş mesaj GÖNDEREMEZSİNİZ.** bunu yapmak yalnızca Discord'un kendisinden alınan bir hata üretecektir.
 ```php
 $webHook->send($msg);
 ```
-How easy was that? ^-^ Now for the much more advanced and cooler stuff, Embeds!
-### Embeds
-Before you send the message, you might want to add an embed. A message can have several embeds in it! You only have to construct an embed and use the `Message->addEmbed()` method to add it into the message object.
+Bu ne kadar kolaydı? ^-^ Şimdi çok daha gelişmiş ve havalı şeyler, Embedler!
+### Embedler
+İletiyi göndermeden önce bir yerleştirme eklemek isteyebilirsiniz. Bir mesajın içinde birkaç gömülü olabilir! Yalnızca bir embed oluşturmanız ve onu mesaj nesnesine eklemek için `Message->addEmbed()` yöntemini kullanmanız gerekir.
 ```php
 $embed = new Embed();
 ```
-Now, the embed has to have something in it to function properly, so we'll add in a title (optional) and a description (optional). **All of the fields are optional, but it should contain ATLEAST one field or it would refuse to add it into the message**
+Şimdi, yerleştirmenin düzgün çalışması için içinde bir şey olması gerekiyor, bu yüzden bir başlık (isteğe bağlı) ve bir açıklama (isteğe bağlı) ekleyeceğiz. **Tüm alanlar isteğe bağlıdır, ancak EN AZ bir alan içermeli, yoksa mesaja eklemeyi reddeder**
 ```php
-$embed->setTitle("Embed Title Here");
-$embed->setDescription("A very awesome description");
+$embed->setTitle("Başlığı buraya gömün");
+$embed->setDescription("Çok harika bir açıklama");
 ```
-We can even set a footer text! The text on the bottom part of the embeds...
+Bir altbilgi metni bile ayarlayabiliriz! Yerleştirmelerin alt kısmındaki metin...
 ```php
-$embed->setFooter("Erin is kawaii UwU");
+$embed->setFooter("UwU);
 ```
-Or even, add an icon to the footer...
+Hatta altbilgiye bir simge ekleyin...
 ```php
-$embed->setFooter("Erin is kawaii UwU","https://cortexpe.xyz/utils/kitsu.png");
+$embed->setFooter("UwU","https://minotar.net/avatar/hyzama0");
 ```
-Now that the embed has been constructed and has a valid content, we will have to add it to the `Message` object... We'll need to use the `Message->addEmbed()` method for that.
+Embed oluşturulduğuna ve geçerli bir içeriğe sahip olduğuna göre, onu `Message` nesnesine eklememiz gerekecek... Bunun için `Message->addEmbed()` yöntemini kullanmamız gerekecek.
 ```php
 $msg->addEmbed($embed);
 ```
-**That's all for the Basic Usage of the API. To learn more, You can explore it by reading the API's source code yourself (the code is simple and explanatory) or by using your favorite IDE to index it yourself. :3**
-# Sample Code used to test this API earlier:
+**API'nin Temel Kullanımı için bu kadar. Daha fazla bilgi edinmek için API'nin kaynak kodunu kendiniz okuyarak (kod basit ve açıklayıcıdır) veya favori IDE'nizi kullanarak kendiniz indeksleyerek keşfedebilirsiniz. :3**
+# Bu API'yi daha önce test etmek için kullanılan Örnek Kod:
 ```php
-// Construct a discord webhook with its URL
-$webHook = new Webhook("YOUR WEBHOOK URL");
+// URL'si ile bir discord web kancası oluşturun
+$webHook = new Webhook("WEBHOOK URL'NİZ");
 
-// Construct a new Message object
+// Yeni bir Mesaj nesnesi oluşturun
 $msg = new Message();
 
-$msg->setUsername("USERNAME");
-$msg->setAvatarURL("https://cortexpe.xyz/utils/kitsu.png");
-$msg->setContent("INSERT TEXT HERE");
+$msg->setUsername("KULLANICI ADI");
+$msg->setAvatarURL("https://minotar.net/avatar/hyzama0");
+$msg->setContent("BURAYA METİN EKLEYİN");
 
-// Create an embed object with #FF0000 (RED) as the embed's color and "EMBED 1" as the title
+// Yerleştirme rengi olarak #FF0000 (KIRMIZI) ve başlık olarak "EMBED 1" olan bir yerleştirme nesnesi oluşturun
 $embed = new Embed();
 $embed->setTitle("EMBED 1");
 $embed->setColor(0xFF0000);
@@ -81,22 +81,22 @@ $msg->addEmbed($embed);
 $embed = new Embed();
 $embed->setTitle("EMBED 2");
 $embed->setColor(0x00FF00);
-$embed->setAuthor("AUTHOR", "https://CortexPE.xyz", "https://cortexpe.xyz/utils/kitsu.png");
-$embed->setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+$embed->setAuthor("YAPIMCI", "https://minotar.net/avatar/hyzama0", "https://minotar.net/avatar/hyzama0");
+$embed->setDescription("UwU");
 $msg->addEmbed($embed);
 
 $embed = new Embed();
-$embed->setTitle("EMBED 3");
+$embed->setTitle("BAŞLIK");
 $embed->setColor(0x0000FF);
-$embed->addField("FIELD ONE", "Some text here");
-$embed->addField("FIELD TWO", "Some text here", true);
-$embed->addField("FIELD THREE", "Some text here", true);
-$embed->setThumbnail("https://cortexpe.xyz/utils/kitsu.png");
-$embed->setImage("https://cortexpe.xyz/utils/kitsu.png");
-$embed->setFooter("Erin is kawaii UwU","https://cortexpe.xyz/utils/kitsu.png");
+$embed->addField("FIELD ONE", "Burada biraz metin");
+$embed->addField("FIELD TWO", "Burada biraz metin", true);
+$embed->addField("FIELD THREE", "Burada biraz metin", true);
+$embed->setThumbnail("https://minotar.net/avatar/hyzama0");
+$embed->setImage("https://minotar.net/avatar/hyzama0");
+$embed->setFooter("UwU","https://minotar.net/avatar/hyzama0");
 $msg->addEmbed($embed);
 
 $webHook->send($msg);
 ```
 -----
-**This API was made with :heart: by CortexPE, Enjoy!~ :3**
+**Bu API, :heart: Eren tarafından yapılmıştır, UwU!~ :3**
